@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/images/sporlab_logo.png" alt="Sporlab Logo" width="200"/>
+<img src="assets/images/sporlab_logo.png" alt="Sporlab Logo" width="220"/>
 
 # Sporlab
 
@@ -15,7 +15,7 @@
 
 **Sporcular ve antrenörler için gelistirilmis kapsamli yonetim sistemi**
 
-[📱 Özellikler](#-özellikler) • [🚀 Kurulum](#-kurulum) • [📸 Ekran Görüntüleri](#-ekran-görüntüleri) • [🛠️ Teknolojiler](#-kullanilan-teknolojiler) • [📞 İletişim](#-iletişim)
+[📱 Özellikler](#-özellikler) • [📸 Ekran Görüntüleri](#-ekran-görüntüleri) • [🚀 Kurulum](#-kurulum) • [🛠️ Teknolojiler](#-kullanilan-teknolojiler) • [📞 İletişim](#-iletişim)
 
 </div>
 
@@ -24,6 +24,8 @@
 ## 📖 Uygulama Hakkinda
 
 **Sporlab**, sporcularin antrenman planlarini olusturmasina, takip etmesine ve performanslarini analiz etmesine olanak taniman modern bir mobil uygulamadir. Flutter ile gelistirilmis olup, hem Android hem de iOS platformlarinda sorunsuz calisir.
+
+Uygulama, sporcularin günlük antrenmanlarini planlamasina, kronometre ile süre takibi yapmasina, taekwondo skor tablosu görüntülemesine ve antrenman takvimini yönetmesine olanak tanir.
 
 ---
 
@@ -53,6 +55,11 @@
 - En iyi/en kotu tur analizi
 - Toplam sure gostermi
 
+### 🥊 Boks & Taekwondo
+- Boks raund sayaci
+- Taekwondo skor tablosu
+- Koyu ve açik tema destegi
+
 ### 🎨 Tema Destegi
 - Koyu ve acik tema secenegi
 - Tema tercihinin kalici saklanmasi
@@ -63,11 +70,54 @@
 
 ## 📸 Ekran Goruntuleri
 
-| Ana Panel | Antrenman Takvimi | Kronometre | Antrenman Planlari |
-|:---:|:---:|:---:|:---:|
-| Mavi-Mor Gradient | Kirmizi-Turuncu Gradient | Mor-Yesil Gradient | Yesil-Teal Gradient |
+### 🏠 Ana Panel
+<div align="center">
+  <img src="assets/images/dashboard_page.png" alt="Dashboard" width="300"/>
+  <p><em>Ana panel - Genel antrenman özeti ve hızlı erişim menüsü</em></p>
+</div>
 
-> **Not:** Her sayfa icin farkli gradient renk duzeni kullanilmistir.
+### 📅 Antrenman Takvimi
+<div align="center">
+  <img src="assets/images/training_schedule_page.png" alt="Training Schedule" width="300"/>
+  <p><em>Antrenman takvimi - Hatırlatıcı ekleme ve düzenleme</em></p>
+</div>
+
+### ⏱️ Kronometre
+<div align="center">
+  <img src="assets/images/stopwatch_page.png" alt="Stopwatch" width="300"/>
+  <p><em>Kronometre - Tur kaydı ve süre takibi</em></p>
+</div>
+
+### 🥊 Boks Raund Sayaci
+<div align="center">
+  <img src="assets/images/boxing_raund_page.png" alt="Boxing Round" width="300"/>
+  <p><em>Boks raund sayaci - Antrenman süreleri için kronometre</em></p>
+</div>
+
+### 🏅 Taekwondo Skor Tablosu
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="assets/images/taekwondo_socreboard.png" alt="Taekwondo Scoreboard Light" width="280"/>
+        <br/>
+        <em>Açık Tema</em>
+      </td>
+      <td align="center">
+        <img src="assets/images/taekwondo_scoreboard_dark.png" alt="Taekwondo Scoreboard Dark" width="280"/>
+        <br/>
+        <em>Koyu Tema</em>
+      </td>
+    </tr>
+  </table>
+  <p><em>Taekwondo skor tablosu - Koyu ve açık tema karşılaştırması</em></p>
+</div>
+
+### 🧭 Uygulama Menüsü
+<div align="center">
+  <img src="assets/images/app_drawer.png" alt="App Drawer" width="300"/>
+  <p><em>Uygulama drawer menüsü - Kolay navigasyon</em></p>
+</div>
 
 ---
 
