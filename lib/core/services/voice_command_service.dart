@@ -25,8 +25,16 @@ class VoiceCommandService {
     }
 
     _isInitialized = await _speechToText.initialize(
-      onError: (error) => debugPrint('Speech recognition error: $error'),
-      onStatus: (status) => debugPrint('Speech recognition status: $status'),
+      onError: (error) {
+        debugPrint('Speech recognition error: $error');
+        _isListening = false;
+      },
+      onStatus: (status) {
+        debugPrint('Speech recognition status: $status');
+        if (status == 'notListening' || status == 'done') {
+          _isListening = false;
+        }
+      },
     );
 
     return _isInitialized;
@@ -44,15 +52,22 @@ class VoiceCommandService {
     if (_isListening) return;
 
     _isListening = true;
+    debugPrint('🎤 Starting speech recognition...');
     await _speechToText.listen(
-      onResult: onResult,
+      onResult: (result) {
+        onResult(result);
+        // Call onDone when final result is received
+        if (result.finalResult) {
+          onDone();
+        }
+      },
       listenOptions: SpeechListenOptions(
-        listenFor: const Duration(seconds: 10),
-        pauseFor: const Duration(seconds: 3),
+        listenFor: const Duration(seconds: 30),
+        pauseFor: const Duration(seconds: 5),
         localeId: 'tr_TR',
-        cancelOnError: true,
-        partialResults: false,
-        listenMode: ListenMode.confirmation,
+        cancelOnError: false,
+        partialResults: true,
+        listenMode: ListenMode.dictation,
       ),
     );
   }

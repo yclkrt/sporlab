@@ -127,8 +127,12 @@ class _TaekwondoScoreboardPageState
 
   /// Puan Ekle
   void _addScore(bool isChung, int points) {
-    if (_phase != MatchPhase.fighting) return;
+    if (_phase != MatchPhase.fighting) {
+      debugPrint('⚠️ _addScore called but phase is $_phase, not fighting');
+      return;
+    }
 
+    debugPrint('✅ _addScore: isChung=$isChung, points=$points');
     setState(() {
       if (isChung) {
         _chungScore += points;
@@ -155,8 +159,12 @@ class _TaekwondoScoreboardPageState
 
   /// Ceza (Gam-jeom) Ekle (+1 puan rakibe verilir)
   void _addPenalty(bool isChung) {
-    if (_phase != MatchPhase.fighting) return;
+    if (_phase != MatchPhase.fighting) {
+      debugPrint('⚠️ _addPenalty called but phase is $_phase, not fighting');
+      return;
+    }
 
+    debugPrint('✅ _addPenalty: isChung=$isChung');
     setState(() {
       if (isChung) {
         _chungPenalties++;
@@ -599,14 +607,17 @@ class _TaekwondoScoreboardPageState
 
   /// Sesli servisi başlat
   Future<void> _initializeVoiceService() async {
+    debugPrint('🎤 Initializing voice service...');
     final initialized = await _voiceService.initialize();
     if (!initialized) {
+      debugPrint('❌ Voice service initialization failed');
       if (mounted) {
         _showCommandFeedback('Sesli tanıma başlatılamadı', isError: true);
       }
       return;
     }
 
+    debugPrint('✅ Voice service initialized successfully');
     setState(() {
       _isVoiceControlActive = true;
     });
@@ -692,6 +703,7 @@ class _TaekwondoScoreboardPageState
 
     await _voiceService.startListening(
       onResult: (SpeechRecognitionResult result) {
+        debugPrint('🎤 Speech result: finalResult=${result.finalResult}, words="${result.recognizedWords}"');
         if (result.finalResult && result.recognizedWords.isNotEmpty) {
           _processVoiceCommand(result.recognizedWords);
           // Sürekli dinleme için yeniden başlat
@@ -703,6 +715,7 @@ class _TaekwondoScoreboardPageState
         }
       },
       onDone: () {
+        debugPrint('🎤 Listening session done, restarting...');
         // Dinleme bitti yeniden başlat (sürekli dinleme modu)
         if (_isVoiceControlActive && mounted) {
           Future.delayed(const Duration(milliseconds: 300), () {
@@ -728,7 +741,13 @@ class _TaekwondoScoreboardPageState
   /// Tanınan komutları işle
   void _processVoiceCommand(String command) {
     final normalizedCommand = _normalizeCommand(command.toLowerCase().trim());
-    
+
+    // Debug logging
+    debugPrint('🎤 Voice command received: "$command"');
+    debugPrint('🎤 Normalized command: "$normalizedCommand"');
+    debugPrint('🎤 Current phase: $_phase');
+    debugPrint('🎤 Is running: $_isRunning');
+
     setState(() {
       _lastRecognizedText = command;
     });
@@ -983,6 +1002,7 @@ class _TaekwondoScoreboardPageState
     }
 
     // === KOMUTU ANLAMADIM ===
+    debugPrint('❌ Command not recognized: "$command" (normalized: "$normalizedCommand")');
     _showCommandFeedback('❌ Anlaşılmadı: "$command"', isError: true);
   }
 
@@ -1001,9 +1021,11 @@ class _TaekwondoScoreboardPageState
   bool _matchAny(String command, List<String> patterns) {
     for (final pattern in patterns) {
       if (command.contains(pattern) || pattern.contains(command)) {
+        debugPrint('✅ Pattern matched: "$pattern" in command "$command"');
         return true;
       }
       if (_isSimilar(command, pattern)) {
+        debugPrint('✅ Similar pattern matched: "$pattern" ~ "$command"');
         return true;
       }
     }
