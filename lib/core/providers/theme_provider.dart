@@ -7,18 +7,30 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
     _loadTheme();
   }
 
-  static const String _themeKey = 'app_theme_mode';
+  ThemeNotifier.withInitialMode(super.initialMode);
+
+  static const String themeKey = 'app_theme_mode';
 
   Future<void> _loadTheme() async {
-    final prefs = await SharedPreferences.getInstance();
-    final themeIndex = prefs.getInt(_themeKey) ?? 0;
-    state = ThemeMode.values[themeIndex];
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final themeIndex = prefs.getInt(themeKey) ?? 0;
+      if (themeIndex >= 0 && themeIndex < ThemeMode.values.length) {
+        state = ThemeMode.values[themeIndex];
+      }
+    } catch (e) {
+      debugPrint('Error loading theme: $e');
+    }
   }
 
   Future<void> setTheme(ThemeMode mode) async {
     state = mode;
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(_themeKey, mode.index);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setInt(themeKey, mode.index);
+    } catch (e) {
+      debugPrint('Error saving theme: $e');
+    }
   }
 
   Future<void> toggleTheme() async {
