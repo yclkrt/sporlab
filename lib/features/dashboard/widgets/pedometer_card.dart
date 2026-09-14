@@ -24,7 +24,7 @@ class _PedometerCardState extends ConsumerState<PedometerCard>
     _pulseController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1400),
-    )..repeat(reverse: true);
+    );
 
     _pulseAnimation = Tween<double>(begin: 0.85, end: 1.15).animate(
       CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
@@ -34,6 +34,10 @@ class _PedometerCardState extends ConsumerState<PedometerCard>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         ref.read(stepTrackerProvider.notifier).initialize(context);
+        // Start animation after initialization
+        if (mounted) {
+          _pulseController.repeat(reverse: true);
+        }
       }
     });
   }
