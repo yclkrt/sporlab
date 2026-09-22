@@ -93,6 +93,11 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  # isar_flutter_libs SPM desteklemediği için CocoaPods kullanmaya devam et.
+  # Bu uyarıyı giderir: "does not support Swift Package Manager for ios"
+  config:
+    enable-swift-package-manager: false
+
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/sounds/
